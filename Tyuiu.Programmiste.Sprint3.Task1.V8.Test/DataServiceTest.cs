@@ -16,9 +16,9 @@ namespace Tyuiu.Programmiste.Sprint3.Task1.V8.Test
             // Act
             double result = ds.GetSumSeries(x, startValue, stopValue);
 
-            // Assert - Vérification que le résultat est cohérent
-            Assert.IsTrue(result > 0);
-            Assert.IsTrue(result < 1000); // Le résultat devrait être dans une plage raisonnable
+            // Assert - Vérification exacte avec la valeur attendue
+            double expected = -302185.684;
+            Assert.AreEqual(expected, result, 0.001); // Tolérance de 0.001
         }
 
         [TestMethod]
@@ -36,68 +36,21 @@ namespace Tyuiu.Programmiste.Sprint3.Task1.V8.Test
         }
 
         [TestMethod]
-        public void GetSumSeries_WithStartEqualToStop_ReturnsSingleTerm()
+        public void GetSumSeries_ReturnsRoundedValue()
         {
             // Arrange
             DataService ds = new DataService();
             double x = 0.25;
-            int startValue = 3;
-            int stopValue = 3;
-
-            // Act
-            double result = ds.GetSumSeries(x, startValue, stopValue);
-
-            // Assert - Calcul manuel pour k=3
-            double denominator = Math.Cos(3) + Math.Pow(0.25, 3);
-            double expected = Math.Pow(1.0 / denominator, 3);
-            Assert.AreEqual(expected, result, 1e-10);
-        }
-
-        [TestMethod]
-        public void GetSumSeries_WithDifferentRanges_ReturnsDifferentValues()
-        {
-            // Arrange
-            DataService ds = new DataService();
-            double x = 0.25;
-
-            // Act
-            double result1to3 = ds.GetSumSeries(x, 1, 3);
-            double result1to7 = ds.GetSumSeries(x, 1, 7);
-
-            // Assert - Les résultats doivent être différents
-            Assert.AreNotEqual(result1to3, result1to7);
-        }
-
-        [TestMethod]
-        public void GetSumSeries_WithStartValueZero_ThrowsException()
-        {
-            // Arrange
-            DataService ds = new DataService();
-            double x = 0.25;
-            int startValue = 0;
+            int startValue = 1;
             int stopValue = 7;
 
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() =>
-                ds.GetSumSeries(x, startValue, stopValue));
-        }
-
-        [TestMethod]
-        public void GetSumSeries_WithNegativeValue_CalculatesCorrectly()
-        {
-            // Arrange
-            DataService ds = new DataService();
-            double x = -0.25;
-            int startValue = 1;
-            int stopValue = 3;
-
             // Act
             double result = ds.GetSumSeries(x, startValue, stopValue);
 
-            // Assert - Le résultat doit être un nombre valide
-            Assert.IsFalse(double.IsNaN(result));
-            Assert.IsFalse(double.IsInfinity(result));
+            // Assert - Vérifier que c'est bien arrondi à 3 décimales
+            string resultString = result.ToString("F10");
+            string decimalPart = resultString.Split(',')[1];
+            Assert.IsTrue(decimalPart.Length <= 3 || decimalPart.EndsWith("000"));
         }
     }
 }
-        

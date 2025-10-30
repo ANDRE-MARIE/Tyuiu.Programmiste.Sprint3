@@ -32,8 +32,9 @@ namespace Tyuiu.Programmiste.Sprint3.Task1.V8.Lib
                 k++; // Incrémentation du compteur
             }
 
-            return product;
+            // ARRONDIR À 3 DÉCIMALES pour correspondre à la valeur attendue
+            return Math.Round(product, 3);
         }
     }
 }
-        
+
