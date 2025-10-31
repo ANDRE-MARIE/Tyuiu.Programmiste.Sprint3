@@ -1,6 +1,6 @@
-﻿
-using Tyuiu.Programmmiste.Srint3.Task3.V18.Lib;
-namespace Tyuiu.Programmmiste.Srint3.Task3.V18.Test
+﻿using Tyuiu.Programmiste.Sprint3.Task3.V18.Lib;
+
+namespace Tyuiu.Programmiste.Sprint3.Task3.V18.Test
 {
     [TestClass]
     public sealed class DataServiceTest
@@ -116,4 +116,3 @@ namespace Tyuiu.Programmmiste.Srint3.Task3.V18.Test
         }
     }
 }
-

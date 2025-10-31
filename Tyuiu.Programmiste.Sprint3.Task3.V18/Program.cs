@@ -1,9 +1,10 @@
 ﻿
-using Tyuiu.Programmmiste.Srint3.Task3.V18.Lib;
+using Tyuiu.Programmiste.Sprint3.Task3.V18.Lib;
 internal class Program
 {
     private static void Main(string[] args)
     {
+
         Console.WriteLine("***************************************************************************");
         Console.WriteLine("* TASK: REMPLACEMENT DES CHIFFRES PAR UN CARACTÈRE                      *");
         Console.WriteLine("***************************************************************************");
@@ -55,4 +56,4 @@ internal class Program
     }
 }
 
-   
+

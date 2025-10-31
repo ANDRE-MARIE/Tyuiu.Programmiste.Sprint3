@@ -1,12 +1,12 @@
-﻿
-using System.Text;
+﻿using System.Text;
 using tyuiu.cources.programming.interfaces.Sprint3;
-namespace Tyuiu.Programmmiste.Srint3.Task3.V18.Lib
+namespace Tyuiu.Programmiste.Sprint3.Task3.V18.Lib
 {
     public class DataService : ISprint3Task3V18
     {
         public string ReplaceNumOnChar(string value, char item)
         {
+
             if (string.IsNullOrEmpty(value))
                 return value;
 
@@ -30,4 +30,4 @@ namespace Tyuiu.Programmmiste.Srint3.Task3.V18.Lib
         }
     }
 }
-        
+
