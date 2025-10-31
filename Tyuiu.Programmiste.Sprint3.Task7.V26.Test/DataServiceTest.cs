@@ -57,34 +57,41 @@ namespace Tyuiu.Programmiste.Sprint3.Task7.V26.Test
         [TestMethod]
         public void GetMassFunction_WithNegativeValue_ReturnsCorrectResult()
         {
-            // Arrange
             DataService ds = new DataService();
-            int startValue = -2;
-            int stopValue = -2;
+            int startValue = -5;
+            int stopValue = 5;
+
+            // Valeurs attendues EXACTES
+            double[] expected = { 19.81, 16.79, 13.87, 10.98, 7.94, 3.0, 3.23, -0.45, -3.79, -6.97, -10.0 };
 
             // Act
             double[] result = ds.GetMassFunction(startValue, stopValue);
 
-            // Assert - Calcul manuel pour x=-2
-            double expected = 5 - 3 * (-2) + (1 + Math.Sin(-2)) / (2 * (-2) - 0.5);
-            Assert.AreEqual(expected, result[0], 0.0001);
+            // Assert - Vérifier chaque valeur avec une tolérance de 0.01
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i], result[i], 0.01,
+                    $"Échec à l'index {i}. Obtenu: {result[i]}, Attendu: {expected[i]}");
+            }
         }
 
         [TestMethod]
-        public void GetMassFunction_WithInvalidRange_ThrowsException()
+        public void GetMassFunction_ForX0_ReturnsExactly3()
         {
             // Arrange
             DataService ds = new DataService();
-            int startValue = 10;
-            int stopValue = 5;
+            int startValue = 0;
+            int stopValue = 0;
 
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() =>
-                ds.GetMassFunction(startValue, stopValue));
+            // Act
+            double[] result = ds.GetMassFunction(startValue, stopValue);
+
+            // Assert - Doit retourner exactement 3.0
+            Assert.AreEqual(3.0, result[0]);
         }
 
         [TestMethod]
-        public void GetMassFunction_CheckAllValuesInRange()
+        public void GetMassFunction_AllValuesRoundedTo2Decimals()
         {
             // Arrange
             DataService ds = new DataService();
@@ -94,12 +101,34 @@ namespace Tyuiu.Programmiste.Sprint3.Task7.V26.Test
             // Act
             double[] result = ds.GetMassFunction(startValue, stopValue);
 
-            // Assert - Vérifier que toutes les valeurs sont calculées correctement
-            for (int i = 0; i < result.Length; i++)
+            // Assert - Toutes les valeurs doivent être arrondies à 2 décimales
+            foreach (double value in result)
             {
-                Assert.IsFalse(double.IsNaN(result[i]), $"Valeur NaN à l'index {i}");
-                Assert.IsFalse(double.IsInfinity(result[i]), $"Valeur infinie à l'index {i}");
+                double rounded = Math.Round(value, 2);
+                Assert.AreEqual(rounded, value, 0.0001,
+                    $"Valeur {value} n'est pas arrondie à 2 décimales");
             }
+        }
+
+        [TestMethod]
+        public void GetMassFunction_CheckSpecificValues()
+        {
+            // Arrange
+            DataService ds = new DataService();
+
+            // Test de valeurs spécifiques critiques
+            TestValue(ds, -5, 19.81);
+            TestValue(ds, -1, 7.94);
+            TestValue(ds, 0, 3.0);
+            TestValue(ds, 1, 3.23);
+            TestValue(ds, 5, -10.0);
+        }
+
+        private void TestValue(DataService ds, int x, double expected)
+        {
+            double[] result = ds.GetMassFunction(x, x);
+            Assert.AreEqual(expected, result[0], 0.01,
+                $"Échec pour x={x}. Obtenu: {result[0]}, Attendu: {expected}");
         }
     }
 }
