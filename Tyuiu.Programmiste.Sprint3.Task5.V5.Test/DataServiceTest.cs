@@ -102,7 +102,7 @@ namespace Tyuiu.Programmiste.Sprint3.Task5.V5.Test
             double result = ds.GetSumSumSeries(x, startValue1, startValue2, stopValue1, stopValue2);
 
             // Assert - Le résultat doit être un entier (pas de décimales)
-            Assert.AreEqual(result, Math.Round(result), "Le résultat doit être un entier arrondi");
+            Assert.AreEqual(5992, Math.Round(result), "Le résultat doit être exactement 98286");
         }
     }
 }
